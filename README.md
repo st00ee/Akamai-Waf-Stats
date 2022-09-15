@@ -1,6 +1,6 @@
-#Akamai WAF Configuration Report
+# Akamai WAF Configuration Report
 
-##A python script that returns status of the configuration in your policies
+## A python script that returns status of the configuration in your policies
 
 This python script uses Akamai appsec api and returns back the critical
 controls and their status (mitigation mode or not). At the moment it only works
@@ -14,7 +14,7 @@ with KSD and AAP. The table returned will provide the following:
 
 API used: https://techdocs.akamai.com/application-security/reference/api
 
-#Installation Instructions
+# Installation Instructions
 
 ## Get API Access!
 
