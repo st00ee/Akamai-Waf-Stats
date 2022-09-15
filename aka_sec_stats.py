@@ -4,7 +4,7 @@ Usage:
 - requests library needs to be installed
 - edgegrid-python library needs to be installed
 - tabulate library needs to be installed
---- use pip installed
+--- use pip for libraries installation
 - Akamai api credentials need to be stored at ~/.edgerc
 - appsec view access needed for this script
 """
