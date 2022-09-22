@@ -66,7 +66,7 @@ def export_config(account, file, prod_version):
         policy_info = [config_file['securityPolicies'][i]['id'],
                        config_file['securityPolicies'][i]['name']]
         sec_policies.append(policy_info)
-        i = i + 1
+        i += 1
 
 
 def export_policies(account, file, prod_version):
@@ -97,7 +97,7 @@ def f_ruleset_mode(account, file, prod_version, sec_policies):
         akamai_conn(account, path)
         rule_mode = json.loads(query.text)
         rule_modes.append(rule_mode['mode'])
-        i = i + 1
+        i += 1
 
 
 def f_attack_group(account, file, prod_version, sec_policies):
@@ -116,7 +116,7 @@ def f_attack_group(account, file, prod_version, sec_policies):
             while j < num_groups:
                 action = group_state[j]['action']
                 list_actions.append(action)
-                j = j + 1
+                j += 1
             alerts = list_actions.count('alert')
             denies = list_actions.count('deny')
             # attacks groups not used, it will default to 0%
@@ -128,7 +128,7 @@ def f_attack_group(account, file, prod_version, sec_policies):
                 attack_groups.append(perc_deny)
         except KeyError:
             attack_groups.append("off")
-        i = i + 1
+        i += 1
 
 
 def f_rate_control(account, file, prod_version, sec_policies):
@@ -160,7 +160,7 @@ def f_rate_control(account, file, prod_version, sec_policies):
                         alerts = alerts + 1
                 else:
                     pass
-                j = j + 1
+                j += 1
         # this will check if the rate controls are configured at all
             rate_info = [denies, alerts]
             rate_controls.append(rate_info)
@@ -168,7 +168,7 @@ def f_rate_control(account, file, prod_version, sec_policies):
             rate_info = ['off', 'off']
             rate_controls.append(rate_info)
 
-        i = i + 1
+        i += 1
 
 
 def f_slow_post(account, file, prod_version, sec_policies):
@@ -184,7 +184,7 @@ def f_slow_post(account, file, prod_version, sec_policies):
             slow_post.append(action)
         except KeyError:
             slow_post.append('off')
-        i = i + 1
+        i += 1
 
 
 def f_client_rep(account, file, prod_version, sec_policies):
@@ -203,11 +203,11 @@ def f_client_rep(account, file, prod_version, sec_policies):
             while j < num_reps:
                 if rep_list[j]['action'] == 'deny':
                     denies = denies + 1
-                j = j + 1
+                j += 1
         except KeyError:
             denies = 'off'
         client_rep.append(denies)
-        i = i + 1
+        i += 1
 
 
 def main():
@@ -268,11 +268,11 @@ def main():
                     slow_post[j],
                     client_rep[j]]
                 policy_list.append(table_insert)
-                j = j + 1
-                k = k + 1
-            i = i + 1
+                j += 1
+                k += 1
+            i += 1
         except KeyError:
-            i = i + 1
+            i += 1
     # tabulating final table
     col_names = ["Number", "File Name", "Policy Name", "Mode", "AGs Deny(%)",
                  "RCs Deny", "RCs Alert", "Slow Post", "CR Deny"]
