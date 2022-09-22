@@ -14,6 +14,8 @@ with KSD and AAP. The table returned will provide the following:
 
 API used: https://techdocs.akamai.com/application-security/reference/api
 
+![aka_stats](https://user-images.githubusercontent.com/85839219/191699496-9f6df0b8-374a-42d2-baaf-ba29a3171eb8.png)
+
 # Installation Instructions
 
 ## Get API Access!
@@ -31,3 +33,4 @@ This script runs on Python3, and the libraries needed to be installed are:
 * tabulate
 
 hint: use the 'pip install' command for this
+
