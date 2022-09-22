@@ -55,7 +55,8 @@ def export_config(account, file, prod_version):
     global config_file
     global sec_policies
     sec_policies = []
-    path = "/appsec/v1/export/configs/{}/versions/{}".format(file, prod_version)
+    path = "/appsec/v1/export/configs/{}/versions/{}".format(
+        file, prod_version)
     akamai_conn(account, path)
     config_file = json.loads(query.text)
     num_policies = len(config_file['securityPolicies'])
@@ -72,10 +73,10 @@ def export_policies(account, file, prod_version):
     """
     Export a list of policies from a file
     """
-    #to be removed
+    # to be removed
     global sec_policies
-    path = "/appsec/v1/configs/{}/versions/{}/security-policies".format(file,
-            prod_version)
+    path = "/appsec/v1/configs/{}/versions/{}/security-policies".format(
+        file, prod_version)
     akamai_conn(account, path)
     sec_policies = json.loads(query.text)
 
@@ -89,7 +90,7 @@ def f_ruleset_mode(account, file, prod_version, sec_policies):
     i = 0
     base = "/appsec/v1/configs"
     while i < num_policies:
-        #pending define list, how to add i index
+        # pending define list, how to add i index
         policy_id = sec_policies[i][0]
         path = base + "/{}/versions/{}/security-policies/{}/mode".format(
             file, prod_version, policy_id)
@@ -118,7 +119,7 @@ def f_attack_group(account, file, prod_version, sec_policies):
                 j = j + 1
             alerts = list_actions.count('alert')
             denies = list_actions.count('deny')
-            #attacks groups not used, it will default to 0%
+            # attacks groups not used, it will default to 0%
             try:
                 perc_deny = "{:.0%}".format(denies / (alerts + denies))
                 attack_groups.append(perc_deny)
@@ -209,7 +210,6 @@ def f_client_rep(account, file, prod_version, sec_policies):
         i = i + 1
 
 
-
 def main():
     """
     calculates the time of the query
@@ -257,22 +257,28 @@ def main():
             f_client_rep(account, file_id, prod_version, sec_policies)
             j = 0
             while j < num_policies:
-                table_insert = [k+1, file_name,
-                sec_policies[j][1],rule_modes[j],
-                attack_groups[j], rate_controls[j][0], rate_controls[j][1],
-                slow_post[j], client_rep[j]]
+                table_insert = [
+                    k + 1,
+                    file_name,
+                    sec_policies[j][1],
+                    rule_modes[j],
+                    attack_groups[j],
+                    rate_controls[j][0],
+                    rate_controls[j][1],
+                    slow_post[j],
+                    client_rep[j]]
                 policy_list.append(table_insert)
                 j = j + 1
                 k = k + 1
             i = i + 1
         except KeyError:
             i = i + 1
-    #tabulating final table
+    # tabulating final table
     col_names = ["Number", "File Name", "Policy Name", "Mode", "AGs Deny(%)",
-        "RCs Deny", "RCs Alert", "Slow Post", "CR Deny"]
-    print (tabulate(policy_list, headers=col_names))
-    print ()
-    print ("AG = Attack Group, RC = Rate Control", "CR = Client Reputation")
+                 "RCs Deny", "RCs Alert", "Slow Post", "CR Deny"]
+    print(tabulate(policy_list, headers=col_names))
+    print()
+    print("AG = Attack Group, RC = Rate Control", "CR = Client Reputation")
     end_time = time.time()
     total_time = round(end_time - start_time, 5)
     print('Query processed in {} seconds.'.format(total_time))
